@@ -12,27 +12,27 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import RealTimeDate from "../components/DateTime";
+import logo from "../assets/iutepal-logo.png";
+import MyModal from "../components/Modal";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
+  { name: "Team", href: "/team", icon: UsersIcon, current: false },
+  { name: "Projects", href: "/projects", icon: FolderIcon, current: false },
+  { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
+  { name: "Documents", href: "/documents", icon: DocumentDuplicateIcon, current: false },
+  { name: "Reports", href: "/reportes", icon: ChartPieIcon, current: false },
 ];
 const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
+  { id: 1, name: "Heroicons", href: "/heroicon", initial: "H", current: false },
+  { id: 2, name: "Tailwind Labs", href: "tailwind", initial: "T", current: false },
+  { id: 3, name: "Workcation", href: "workcation", initial: "W", current: false },
 ];
 const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your profile", href: "/aun no" },
+  { name: "Sign out", href: "aun nada" },
 ];
 
 function classNames(...classes) {
@@ -41,9 +41,31 @@ function classNames(...classes) {
 
 export const Sidebar = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
-    <>     
+    <>
+      <MyModal isOpen={isOpen} closeModal={closeModal}>
+        <div className="flex">
+        <Dialog.Title
+          as="h3"
+          className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
+        >
+          Notificaciones
+        </Dialog.Title>
+          <XMarkIcon className="w-7 h-7 mb-[-20px] cursor-pointer" onClick={closeModal}></XMarkIcon>
+        </div>
+        <h2 className="mt-10 text-center">No hay Notificaciones Disponibles.</h2>{" "}
+        {/* Contenido de notificaciones */}
+      </MyModal>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -98,13 +120,10 @@ export const Sidebar = ({ children }) => {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-300 px-6 pb-4">
                     <div className="flex h-16 shrink-0 items-center">
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                        alt="Your Company"
-                      />
+                      <img className="h-14 w-auto" src={logo} alt="IUTEPAL" />
+                      <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -116,8 +135,8 @@ export const Sidebar = ({ children }) => {
                                   href={item.href}
                                   className={classNames(
                                     item.current
-                                      ? "bg-indigo-700 text-white"
-                                      : "text-indigo-200 hover:text-white hover:bg-indigo-700",
+                                      ? "bg-indigo-600 text-white"
+                                      : "text-black hover:text-white hover:bg-indigo-600",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
@@ -125,7 +144,7 @@ export const Sidebar = ({ children }) => {
                                     className={classNames(
                                       item.current
                                         ? "text-white"
-                                        : "text-indigo-200 group-hover:text-white",
+                                        : "text-indigo-700 group-hover:text-white",
                                       "h-6 w-6 shrink-0"
                                     )}
                                     aria-hidden="true"
@@ -137,7 +156,7 @@ export const Sidebar = ({ children }) => {
                           </ul>
                         </li>
                         <li>
-                          <div className="text-xs font-semibold leading-6 text-indigo-200">
+                          <div className="text-xs font-semibold leading-6 text-gray-500">
                             Your teams
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
@@ -147,12 +166,12 @@ export const Sidebar = ({ children }) => {
                                   href={team.href}
                                   className={classNames(
                                     team.current
-                                      ? "bg-indigo-700 text-white"
-                                      : "text-indigo-200 hover:text-white hover:bg-indigo-700",
+                                      ? "bg-indigo-700 text-black"
+                                      : "text-black hover:text-white hover:bg-indigo-600",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                   )}
                                 >
-                                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-500 text-[0.625rem] font-medium text-white">
+                                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-600 text-[0.625rem] font-medium text-white">
                                     {team.initial}
                                   </span>
                                   <span className="truncate">{team.name}</span>
@@ -164,10 +183,10 @@ export const Sidebar = ({ children }) => {
                         <li className="mt-auto">
                           <a
                             href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white"
+                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-indigo-600 hover:text-white"
                           >
                             <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white"
+                              className="h-6 w-6 shrink-0 text-indigo-700 group-hover:text-white"
                               aria-hidden="true"
                             />
                             Settings
@@ -185,13 +204,10 @@ export const Sidebar = ({ children }) => {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-300 px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                alt="Your Company"
-              />
+              <img className="h-8 w-auto" src={logo} alt="Your Company" />
+              <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -203,8 +219,8 @@ export const Sidebar = ({ children }) => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-indigo-700 text-white"
-                              : "text-indigo-200 hover:text-white hover:bg-indigo-700",
+                              ? "bg-indigo-600 text-white"
+                              : "text-black hover:text-white hover:bg-indigo-600",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
@@ -212,7 +228,7 @@ export const Sidebar = ({ children }) => {
                             className={classNames(
                               item.current
                                 ? "text-white"
-                                : "text-indigo-200 group-hover:text-white",
+                                : "text-indigo-600 group-hover:text-white",
                               "h-6 w-6 shrink-0"
                             )}
                             aria-hidden="true"
@@ -224,7 +240,7 @@ export const Sidebar = ({ children }) => {
                   </ul>
                 </li>
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-indigo-200">
+                  <div className="text-xs font-semibold leading-6 text-gray-500">
                     Your teams
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
@@ -235,11 +251,11 @@ export const Sidebar = ({ children }) => {
                           className={classNames(
                             team.current
                               ? "bg-indigo-700 text-white"
-                              : "text-indigo-200 hover:text-white hover:bg-indigo-700",
+                              : "text-black hover:text-white hover:bg-indigo-700",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                           )}
                         >
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-500 text-[0.625rem] font-medium text-white">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-400 text-[0.625rem] font-medium text-white">
                             {team.initial}
                           </span>
                           <span className="truncate">{team.name}</span>
@@ -250,11 +266,11 @@ export const Sidebar = ({ children }) => {
                 </li>
                 <li className="mt-auto">
                   <a
-                    href="#"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white"
+                    href="/configuracion"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-indigo-700 hover:text-white"
                   >
                     <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white"
+                      className="h-6 w-6 shrink-0 text-indigo-600 group-hover:text-white"
                       aria-hidden="true"
                     />
                     Settings
@@ -283,29 +299,18 @@ export const Sidebar = ({ children }) => {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
-                <label htmlFor="search-field" className="sr-only">
-                  Search
-                </label>
-                <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-                <input
-                  id="search-field"
-                  className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Search..."
-                  type="search"
-                  name="search"
-                />
-              </form>
+              <RealTimeDate />
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <BellIcon
+                    onClick={openModal}
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  />
                 </button>
 
                 {/* Separator */}
