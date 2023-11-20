@@ -1,9 +1,10 @@
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { BrowserRouter, useRoutes  } from "react-router-dom";
 import Dashboard from "../Home";
 import NoFound from "../NoFound";
 
 const AppRoutes = () => {
   let routes = useRoutes([
+    { path: "/inicio", element: <Dashboard /> },
     { path: "/", element: <Dashboard /> },
     // { path: "/my-account", element: <MyAccount /> },
     // { path: "/my-order", element: <MyOrder /> },

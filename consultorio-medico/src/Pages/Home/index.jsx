@@ -1,10 +1,15 @@
-import Table from "../../components/Table"
+import { TablePacientes } from "../../components/Table"
+import { Sidebar } from "../../Layout"
 
 function Dashboard() {
 
   return (
     <>
-        <Table></Table>      
+      <Sidebar pageTitle={"Inicio"}>
+        <main>
+        <TablePacientes />
+        </main>
+      </Sidebar>
     </>
   )
 }

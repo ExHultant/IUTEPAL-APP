@@ -7,7 +7,6 @@ import {
   ChartPieIcon,
   Cog6ToothIcon,
   DocumentDuplicateIcon,
-  FolderIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
@@ -16,30 +15,58 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import RealTimeDate from "../components/DateTime";
 import logo from "../assets/iutepal-logo.png";
 import MyModal from "../components/Modal";
+import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
-  { name: "Team", href: "/team", icon: UsersIcon, current: false },
-  { name: "Projects", href: "/projects", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "/documents", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "/reportes", icon: ChartPieIcon, current: false },
+  { name: "Inicio", href: "/inicio", icon: HomeIcon, current: false },
+  { name: "Pacientes", href: "/pacientes", icon: UsersIcon, current: false },
+  {
+    name: "Calendario",
+    href: "/calendario",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Recipes",
+    href: "/recipes",
+    icon: DocumentDuplicateIcon,
+    current: false,
+  },
+  { name: "Reportes", href: "/reportes", icon: ChartPieIcon, current: false },
 ];
 const teams = [
-  { id: 1, name: "Heroicons", href: "/heroicon", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "tailwind", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "workcation", initial: "W", current: false },
+  {
+    id: 1,
+    name: "Administrativo",
+    href: "/adminitracion",
+    initial: "A",
+    current: false,
+  },
+  {
+    id: 2,
+    name: "Psicologo",
+    href: "/administracion",
+    initial: "P",
+    current: false,
+  },
+  {
+    id: 3,
+    name: "Inventario",
+    href: "/inventario",
+    initial: "I",
+    current: false,
+  },
 ];
 const userNavigation = [
-  { name: "Your profile", href: "/aun no" },
-  { name: "Sign out", href: "aun nada" },
+  { name: "Perfil", href: "/aun no" },
+  { name: "Cerrar Sesión", href: "aun nada" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Sidebar = ({ children }) => {
+export const Sidebar = ({ children, pageTitle }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -54,16 +81,19 @@ export const Sidebar = ({ children }) => {
   return (
     <>
       <MyModal isOpen={isOpen} closeModal={closeModal}>
-        <div className="flex">
-        <Dialog.Title
-          as="h3"
-          className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
-        >
-          Notificaciones
-        </Dialog.Title>
-          <XMarkIcon className="w-7 h-7 mb-[-20px] cursor-pointer" onClick={closeModal}></XMarkIcon>
+        <div className="flex m-5">
+          <Dialog.Title
+            as="h3"
+            className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
+          >
+            Notificaciones
+          </Dialog.Title>
+          <XMarkIcon
+            className="w-7 h-7 mb-[-20px] cursor-pointer"
+            onClick={closeModal}
+          ></XMarkIcon>
         </div>
-        <h2 className="mt-10 text-center">No hay Notificaciones Disponibles.</h2>{" "}
+        <h2 className="m-10 text-center">No hay Notificaciones Disponibles.</h2>
         {/* Contenido de notificaciones */}
       </MyModal>
       <div>
@@ -121,16 +151,18 @@ export const Sidebar = ({ children }) => {
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-300 px-6 pb-4">
-                    <div className="flex h-16 shrink-0 items-center">
-                      <img className="h-14 w-auto" src={logo} alt="IUTEPAL" />
-                      <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
-                    </div>
+                    <Link to="/">
+                      <div className="flex h-16 shrink-0 items-center">
+                        <img className="h-14 w-auto" src={logo} alt="IUTEPAL" />
+                        <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
+                      </div>
+                    </Link>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item) => (
-                              <li key={item.name}>
+                            {navigation.map((item, i) => (
+                              <li key={i}>
                                 <a
                                   href={item.href}
                                   className={classNames(
@@ -157,11 +189,11 @@ export const Sidebar = ({ children }) => {
                         </li>
                         <li>
                           <div className="text-xs font-semibold leading-6 text-gray-500">
-                            Your teams
+                            Equipo IUTEPAL
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
-                            {teams.map((team) => (
-                              <li key={team.name}>
+                            {teams.map((team, i) => (
+                              <li key={i}>
                                 <a
                                   href={team.href}
                                   className={classNames(
@@ -189,7 +221,7 @@ export const Sidebar = ({ children }) => {
                               className="h-6 w-6 shrink-0 text-indigo-700 group-hover:text-white"
                               aria-hidden="true"
                             />
-                            Settings
+                            Configuración
                           </a>
                         </li>
                       </ul>
@@ -205,20 +237,22 @@ export const Sidebar = ({ children }) => {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-300 px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
-              <img className="h-8 w-auto" src={logo} alt="Your Company" />
-              <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
-            </div>
+            <Link to="/">
+              <div className="flex h-16 shrink-0 items-center">
+                <img className="h-8 w-auto" src={logo} alt="Your Company" />
+                <h2 className="text-2xl font-bold ml-5">IUTEPAL</h2>
+              </div>
+            </Link>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
-                      <li key={item.name}>
+                    {navigation.map((item, i) => (
+                      <li key={i}>
                         <a
                           href={item.href}
                           className={classNames(
-                            item.current
+                            location.pathname === item.href
                               ? "bg-indigo-600 text-white"
                               : "text-black hover:text-white hover:bg-indigo-600",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -226,9 +260,9 @@ export const Sidebar = ({ children }) => {
                         >
                           <item.icon
                             className={classNames(
-                              item.current
+                              location.pathname === item.href
                                 ? "text-white"
-                                : "text-indigo-600 group-hover:text-white",
+                                : "text-indigo-700 group-hover:text-white",
                               "h-6 w-6 shrink-0"
                             )}
                             aria-hidden="true"
@@ -241,15 +275,15 @@ export const Sidebar = ({ children }) => {
                 </li>
                 <li>
                   <div className="text-xs font-semibold leading-6 text-gray-500">
-                    Your teams
+                    Equipo IUTEPAL
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team) => (
-                      <li key={team.name}>
+                    {teams.map((team, i) => (
+                      <li key={i}>
                         <a
                           href={team.href}
                           className={classNames(
-                            team.current
+                            location.pathname === team.href
                               ? "bg-indigo-700 text-white"
                               : "text-black hover:text-white hover:bg-indigo-700",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -267,13 +301,23 @@ export const Sidebar = ({ children }) => {
                 <li className="mt-auto">
                   <a
                     href="/configuracion"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-indigo-700 hover:text-white"
+                    className={classNames(
+                      location.pathname === "/configuracion"
+                        ? "bg-indigo-600 text-white"
+                        : "text-black hover:text-white hover:bg-indigo-600",
+                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                    )}
                   >
                     <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0 text-indigo-600 group-hover:text-white"
+                      className={classNames(
+                        location.pathname === "/configuracion"
+                          ? "bg-indigo-600 text-white"
+                          : "text-black hover:text-white hover:bg-indigo-600",
+                        "h-6 w-6 shrink-0 text-indigo-700 group-hover:text-white"
+                      )}
                       aria-hidden="true"
                     />
-                    Settings
+                    Configuración
                   </a>
                 </li>
               </ul>
@@ -299,6 +343,9 @@ export const Sidebar = ({ children }) => {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+              <h1 className="text-4xl font-semibold text-gray-900 mt-2 flex-1">
+                {pageTitle}
+              </h1>
               <RealTimeDate />
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
@@ -332,9 +379,7 @@ export const Sidebar = ({ children }) => {
                       <span
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
-                      >
-                        Tom Cook
-                      </span>
+                      ></span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"
                         aria-hidden="true"
