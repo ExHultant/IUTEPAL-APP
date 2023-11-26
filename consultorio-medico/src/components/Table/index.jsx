@@ -151,7 +151,7 @@ export const TablePacientes = () => {
                   <Badge color="emerald">{item.status}</Badge>
                 </TableCell>
                 <TableCell>
-                <Badge color="blue" className="cursor-pointer">Ver Perfil</Badge>
+                <Badge onClick={openModal} color="blue" className="cursor-pointer">Ver Perfil</Badge>
                 </TableCell>
               </TableRow>
             ))}

@@ -9,6 +9,7 @@ import {
   DocumentDuplicateIcon,
   HomeIcon,
   UsersIcon,
+  WalletIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -33,6 +34,7 @@ const navigation = [
     current: false,
   },
   { name: "Reportes", href: "/reportes", icon: ChartPieIcon, current: false },
+  { name: "Inventario", href: "/inventario", icon: WalletIcon, current: false },
 ];
 const teams = [
   {
@@ -58,8 +60,8 @@ const teams = [
   },
 ];
 const userNavigation = [
-  { name: "Perfil", href: "/aun no" },
-  { name: "Cerrar Sesión", href: "aun nada" },
+  { name: "Perfil", href: "/perfil" },
+  { name: "Cerrar Sesión", href: "/logout" },
 ];
 
 function classNames(...classes) {
@@ -69,6 +71,7 @@ function classNames(...classes) {
 export const Sidebar = ({ children, pageTitle }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  // const history = useHistory();
 
   function closeModal() {
     setIsOpen(false);
@@ -399,15 +402,20 @@ export const Sidebar = ({ children, pageTitle }) => {
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <a
-                              href={item.href}
+                            <Link
+                              to={item.href}
                               className={classNames(
                                 active ? "bg-gray-50" : "",
                                 "block px-3 py-1 text-sm leading-6 text-gray-900"
                               )}
+                            //   onClick={() => {
+                            //     // Lógica de cierre de sesión
+                            //     localStorage.removeItem("user");
+                            //     history.push("/login");
+                            //   }}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       ))}

@@ -32,7 +32,7 @@ export default function MyModal({ isOpen, closeModal, children }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="m-6 bg-white rounded-lg  shadow-xl transform transition-all w-3/5">
+            <Dialog.Panel className={`m-6 bg-white rounded-lg shadow-xl transform transition-all w-3/5`}>
               {children}
             </Dialog.Panel>
           </Transition.Child>
