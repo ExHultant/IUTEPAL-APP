@@ -71,7 +71,6 @@ function classNames(...classes) {
 export const Sidebar = ({ children, pageTitle }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  // const history = useHistory();
 
   function closeModal() {
     setIsOpen(false);
@@ -408,11 +407,6 @@ export const Sidebar = ({ children, pageTitle }) => {
                                 active ? "bg-gray-50" : "",
                                 "block px-3 py-1 text-sm leading-6 text-gray-900"
                               )}
-                            //   onClick={() => {
-                            //     // Lógica de cierre de sesión
-                            //     localStorage.removeItem("user");
-                            //     history.push("/login");
-                            //   }}
                             >
                               {item.name}
                             </Link>

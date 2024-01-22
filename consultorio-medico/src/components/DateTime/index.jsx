@@ -15,7 +15,7 @@ const RealTimeDate = () => {
   }, []);
 
   return (
-    <div className='relative flex flex-1 pt-5'>
+    <div className='relative flex flex-1 pt-5 justify-end'>
       <h2 className='font-semibold text-xl'>Fecha:</h2>
       <p className='text-xl pl-3'>{format(currentDate, 'dd/MM/yyyy')}</p>
       <h2 className='font-semibold text-xl pl-6'>Hora:</h2>

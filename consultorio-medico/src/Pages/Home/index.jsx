@@ -27,7 +27,7 @@ function Dashboard() {
           {links.map((link, index) => (
             <Link key={index} to={link.to}>
               <Card className="cursor-pointer hover:bg-indigo-600 transition-all">
-                <div className="w-40 flex items-center justify-center ml-14 text-indigo-400">{link.icon}</div>
+                <div className="w-40 flex items-center justify-center m-auto text-indigo-400">{link.icon}</div>
                 <h2 className="text-xl font-semibold text-center">{link.label}</h2>
               </Card>
             </Link>
