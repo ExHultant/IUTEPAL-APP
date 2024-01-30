@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
@@ -15,8 +15,9 @@ import {
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import RealTimeDate from "../components/DateTime";
 import logo from "../assets/iutepal-logo.png";
-import MyModal from "../components/Modal";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Button, Dialog, DialogPanel, Title } from "@tremor/react";
 
 const navigation = [
   { name: "Inicio", href: "/inicio", icon: HomeIcon, current: false },
@@ -69,35 +70,28 @@ function classNames(...classes) {
 }
 
 export const Sidebar = ({ children, pageTitle }) => {
+  Sidebar.propTypes = {
+    children: PropTypes.any.isRequired,
+    pageTitle: PropTypes.string.isRequired,
+  };
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <>
-      <MyModal isOpen={isOpen} closeModal={closeModal}>
-        <div className="flex m-5">
-          <Dialog.Title
-            as="h3"
-            className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
-          >
-            Notificaciones
-          </Dialog.Title>
-          <XMarkIcon
-            className="w-7 h-7 mb-[-20px] cursor-pointer"
-            onClick={closeModal}
-          ></XMarkIcon>
-        </div>
-        <h2 className="m-10 text-center">No hay Notificaciones Disponibles.</h2>
-        {/* Contenido de notificaciones */}
-      </MyModal>
+      <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+        <DialogPanel>
+          <Title className="mb-3">Account Created Successfully</Title>
+          Your account has been created successfully. You can now login to your
+          account. For more information, please contact us.
+          <div className="mt-3">
+            <Button variant="light" onClick={() => setIsOpen(false)}>
+              Got it!
+            </Button>
+          </div>
+        </DialogPanel>
+      </Dialog>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -354,9 +348,9 @@ export const Sidebar = ({ children, pageTitle }) => {
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
                 >
-                  <span className="sr-only">View notifications</span>
+                  <span className="sr-only">Ver Notificaciones</span>
                   <BellIcon
-                    onClick={openModal}
+                    onClick={() => setIsOpen(true)}
                     className="h-6 w-6"
                     aria-hidden="true"
                   />
