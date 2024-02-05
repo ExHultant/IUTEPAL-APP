@@ -1,50 +1,38 @@
-import { Dialog } from "@headlessui/react";
+import { Button, Dialog, DialogPanel, Flex, Title } from "@tremor/react";
 import { Sidebar } from "../../Layout";
-import MyModal from "../../components/Modal";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import Form from "../../components/Form";
 import { useState } from "react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import FileLoad from "../../components/FileLoad/FileLoad";
 
 function Recipes() {
   const [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
   return (
     <Sidebar pageTitle={"Recipes y Reposos"}>
       <main>
-      <MyModal isOpen={isOpen} closeModal={closeModal}>
-        <div className="flex m-5">
-          <Dialog.Title
-            as="h3"
-            className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
-          >
-            Registrar Reposo/Recipe
-          </Dialog.Title>
-          <XMarkIcon
-            className="w-7 h-7 ml-5 cursor-pointer"
-            onClick={closeModal}
-          ></XMarkIcon>
-        </div>
-        <FileLoad />
-      </MyModal>
-      <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex justify-end">
-          <button
-            onClick={openModal}
+        <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+          <DialogPanel className="max-w-4xl">
+            <Flex alignItems="center" justifyContent="between" className="mb-4">
+              <Title className="mb-3">Importar/Registrar Reposo o Recipe</Title>
+              <XMarkIcon className="h-6 w-6 cursor-pointer" onClick={() => setIsOpen(false)} />
+            </Flex>
+            <FileLoad />
+          </DialogPanel>
+        </Dialog>
+
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex justify-end">
+          <Button
+            onClick={() => setIsOpen(true)}
             type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="block rounded-md bg-secondary px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-all duration-300"
           >
             Importar
-          </button>
+          </Button>
         </div>
 
-        <p className="mt-3">No se encuentran Reposos registrados Actualmente.</p>
+        <p className="mt-3">
+          No se encuentran Reposos registrados Actualmente.
+        </p>
       </main>
     </Sidebar>
   );

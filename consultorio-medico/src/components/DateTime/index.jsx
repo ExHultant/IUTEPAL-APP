@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { Text, Title } from "@tremor/react";
 
 const RealTimeDate = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -15,11 +16,11 @@ const RealTimeDate = () => {
   }, []);
 
   return (
-    <div className='relative flex flex-1 pt-5 justify-end'>
-      <h2 className='font-semibold text-xl'>Fecha:</h2>
-      <p className='text-xl pl-3'>{format(currentDate, 'dd/MM/yyyy')}</p>
-      <h2 className='font-semibold text-xl pl-6'>Hora:</h2>
-      <p className='text-xl pl-3'>{format(currentDate, 'HH:mm:ss')}</p>
+    <div className="relative flex flex-1 pt-5 justify-end">
+      <Title className="font-semibold text-xl">Fecha:</Title>
+      <Text className="text-xl pl-3">{format(currentDate, "dd/MM/yyyy")}</Text>
+      <Title className="font-semibold text-xl pl-6">Hora:</Title>
+      <Text className="text-xl pl-3">{format(currentDate, "HH:mm:ss")}</Text>
     </div>
   );
 };

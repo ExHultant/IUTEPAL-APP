@@ -1,11 +1,10 @@
-import { useState } from "react";
-import MyModal from "../Modal";
-import { Dialog } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import Form from "../Form";
 import {
   Badge,
+  Button,
   Card,
+  Dialog,
+  DialogPanel,
   Table,
   TableBody,
   TableCell,
@@ -15,106 +14,37 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-
-const data = [
-  {
-    name: "Viola Amherd",
-    date: "19/11/2023",
-    id: "123456789",
-    post: "Administracion",
-    MC: "Preempleo",
-    status: "activo",
-  },
-  {
-    name: "Simonetta Sommaruga",
-    date: "19/11/2023",
-    id: "123456789",
-    MC: "Preempleo",
-    post: "Administracion",
-    status: "activo",
-  },
-  {
-    name: "Alain Berset",
-    date: "19/11/2023",
-    id: "123456789",
-    MC: "Preempleo",
-    post: "Estudiante",
-    status: "activo",
-  },
-  {
-    name: "Ignazio Cassis",
-    date: "19/11/2023",
-    id: "123456789",
-    post: "Administracion",
-    MC: "Preempleo",
-    status: "activo",
-  },
-  {
-    name: "Karin Keller-Sutter",
-    date: "19/11/2023",
-    id: "123456789",
-    MC: "Preempleo",
-    post: "Estudiante",
-    status: "activo",
-  },
-  {
-    name: "Guy Parmelin",
-    date: "19/11/2023",
-    id: "123456789",
-    MC: "Preempleo",
-    post: "Administracion",
-    status: "activo",
-  },
-  {
-    name: "Elisabeth Baume-Schneider",
-    date: "19/11/2023",
-    id: "123456789",
-    MC: "Preempleo",
-    post: "Estudiante",
-    status: "activo",
-  },
-];
+import { data } from "../../utils/data-tables";
+import { useState } from "react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export const TablePacientes = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <MyModal isOpen={isOpen} closeModal={closeModal}>
-        <div className="flex m-5">
-          <Dialog.Title
-            as="h3"
-            className="text-lg font-medium leading-6 text-gray-900 flex flex-1"
-          >
-            Formulario de Registro de Pacientes
-          </Dialog.Title>
-          <XMarkIcon
-            className="w-7 h-7 ml-5 cursor-pointer"
-            onClick={closeModal}
-          ></XMarkIcon>
-        </div>
-        <Form />
-      </MyModal>
+    
+    <div className="px-4 sm:px-6 lg:px-8">      
+    <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+        <DialogPanel className="max-w-6xl">
+          <div className="flex justify-between">
+          <Title className="mb-3">Formulario de Registro de Pacientes IUTEPAL</Title>
+          <XMarkIcon className="h-7 w-7 cursor-pointer" onClick={() => setIsOpen(false)}/>
+          </div>
+          <Form />          
+        </DialogPanel>
+      </Dialog>
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h2 className="text-2xl font-medium">Pacientes</h2>
+          {/* <h2 className="text-2xl font-medium">Pacientes</h2> */}
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            onClick={openModal}
+          <Button
+            onClick={() => setIsOpen(true)}
             type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="block rounded-md bg-secondary px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary hover:shadow-md transition duration-300 ease-in-out"
           >
             Añadir Paciente
-          </button>
+          </Button>
         </div>
       </div>
       <Card className="mt-5">
@@ -151,7 +81,7 @@ export const TablePacientes = () => {
                   <Badge color="emerald">{item.status}</Badge>
                 </TableCell>
                 <TableCell>
-                <Badge onClick={openModal} color="blue" className="cursor-pointer">Ver Perfil</Badge>
+                <Badge onClick={() => setIsOpen(true)} color="blue" className="cursor-pointer">Ver Perfil</Badge>
                 </TableCell>
               </TableRow>
             ))}

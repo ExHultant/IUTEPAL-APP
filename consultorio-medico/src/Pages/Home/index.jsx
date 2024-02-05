@@ -1,5 +1,5 @@
 import { Sidebar } from "../../Layout";
-import { Card, Grid } from "@tremor/react";
+import { Card, Grid, Title } from "@tremor/react";
 import {
   CalendarIcon,
   ChartPieIcon,
@@ -28,7 +28,7 @@ function Dashboard() {
             <Link key={index} to={link.to}>
               <Card className="cursor-pointer hover:bg-secondary transition-all duration-500">
                 <div className="w-40 flex items-center justify-center m-auto text-primary">{link.icon}</div>
-                <h2 className="text-xl font-semibold text-center">{link.label}</h2>
+                <Title className="text-xl font-semibold text-center">{link.label}</Title>
               </Card>
             </Link>
           ))}
