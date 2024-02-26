@@ -1,4 +1,4 @@
-import { Flex, NumberInput, Text, TextInput } from "@tremor/react";
+import { Button, Flex, NumberInput, Text, TextInput } from "@tremor/react";
 import { DatePicker } from "@tremor/react";
 import { Select, SelectItem } from "@tremor/react";
 import { Textarea } from "@tremor/react";
@@ -28,12 +28,12 @@ export default function Form() {
         />
       </Flex>
       <div className="mx-3">
-      <Text className="my-2">Cargo</Text>
-      <Select placeholder="Seleccionar">
-        <SelectItem value="1">Administración</SelectItem>
-        <SelectItem value="2">Docente</SelectItem>
-        <SelectItem value="3">Estudiante</SelectItem>
-      </Select>
+        <Text className="my-2">Cargo</Text>
+        <Select placeholder="Seleccionar">
+          <SelectItem value="1">Administración</SelectItem>
+          <SelectItem value="2">Docente</SelectItem>
+          <SelectItem value="3">Estudiante</SelectItem>
+        </Select>
       </div>
       <div className="flex items-center justify-around my-2">
         <Text>Género</Text>
@@ -61,9 +61,10 @@ export default function Form() {
         />
       </Flex>
       <div className="mx-3">
-      <Text className="my-2">Reposo</Text>
-      <FileLoad />
+        <Text className="my-2">Reposo</Text>
+        <FileLoad />
       </div>
+      <Button type="submit">Crear Paciente </Button>
     </form>
   );
 }

@@ -6,7 +6,8 @@ import Calendar from "../Calendar";
 import Recipes from "../Recipes";
 import Reports from "../Reports";
 import Inventory from "../Inventory";
-import Login from "../../components/auth/login";
+import Login from "../../components/auth/Login";
+import ProfilePage from "../Profile";
 
 const AppRoutes = () => {
   let routes = useRoutes([    
@@ -17,6 +18,7 @@ const AppRoutes = () => {
     { path: "/recipes", element: <Recipes /> },
     { path: "/reportes", element: <Reports /> },
     { path: "/inventario", element: <Inventory/> },
+    {path: "/perfil", element: <ProfilePage />},
     { path: "/*", element: <NoFound /> },
   ]);
 

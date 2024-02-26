@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Bars3Icon,
   BellIcon,
-  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import RealTimeDate from "../components/DateTime";
 import logo from "../assets/iutepal-logo.png";
@@ -16,7 +15,7 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { navigation, teams } from "../utils/routes";
+import { navigation } from "../utils/routes";
 import { classNames } from "../utils/classes";
 import { NavMobile } from "../components/nav-mobile";
 import { ProfileDropdown } from "../components/profile-dropdown";
@@ -86,54 +85,7 @@ export const Sidebar = ({ children, pageTitle }) => {
                       </li>
                     ))}
                   </ul>
-                </li>
-                <li>
-                  <Text className="text-xs font-semibold leading-6 text-gray-500">
-                    Equipo IUTEPAL
-                  </Text>
-                  <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team, i) => (
-                      <li key={i}>
-                        <Link
-                          to={team.href}
-                          className={classNames(
-                            location.pathname === team.href
-                              ? "bg-primary text-white"
-                              : "text-black hover:text-white hover:bg-primary hover:transition-all duration-300",
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                          )}
-                        >
-                          <Text className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-tertiary bg-tertiary text-[0.625rem] font-medium text-black">
-                            {team.initial}
-                          </Text>
-                          <Text className="truncate">{team.name}</Text>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li className="mt-auto">
-                  <Link
-                    to="/configuracion"
-                    className={classNames(
-                      location.pathname === "/configuracion"
-                        ? "bg-primary text-white"
-                        : "text-black hover:text-white hover:bg-primary hover:transition-all duration-300",
-                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                    )}
-                  >
-                    <Cog6ToothIcon
-                      className={classNames(
-                        location.pathname === "/configuracion"
-                          ? "text-white"
-                          : "text-secondary group-hover:text-white",
-                        "h-6 w-6 shrink-0"
-                      )}
-                      aria-hidden="true"
-                    />
-                    Configuración
-                  </Link>
-                </li>
+                </li>                
               </ul>
             </nav>
           </div>

@@ -7,7 +7,7 @@ function NoFound() {
       <Sidebar>
         <div className="ml-64">
         <img className="h-auto w-auto ml-28" src={logo} alt="IUTEPAL" />
-        <h1 className="text-6xl font-bold my-10">¡Proximamente!</h1>
+        <h1 className="text-6xl font-bold my-10">No se encuentra :c</h1>
         </div>
       </Sidebar>
     </>
