@@ -10,6 +10,7 @@ export default function FileLoad({ className, onFileChange }) {
       className={`relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 ${className}`}
     >
       <input
+        name="reposo"
         type="file"
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         onChange={onFileChange}

@@ -12,30 +12,66 @@ import {
   TableHeaderCell,
   TableRow,
   Text,
+  TextInput,
   Title,
 } from "@tremor/react";
+import { useCallback, useState } from "react";
+import { EyeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { RiSearchLine } from "@remixicon/react";
+import { Pagination } from "@mui/material";
 import { data } from "../../utils/data-tables";
-import { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export const TablePacientes = () => {
+  const [pacientes, setPacientes] = useState(data);
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 10;
+
+  const agregarPaciente = useCallback((nuevoPaciente) => {
+    setPacientes((prevPacientes) => [...prevPacientes, nuevoPaciente]);
+  }, []);
+
+  const filteredData = searchTerm
+    ? pacientes.filter((item) => item.name.includes(searchTerm))
+    : pacientes;
+
+  const paginatedData = filteredData.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  const handleChangePage = (event, newPage) => {
+    if (typeof newPage === "number") {
+      setPage(newPage - 1);
+    }
+  };
 
   return (
-    
-    <div className="px-4 sm:px-6 lg:px-8">      
-    <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
         <DialogPanel className="max-w-6xl">
           <div className="flex justify-between">
-          <Title className="mb-3">Formulario de Registro de Pacientes IUTEPAL</Title>
-          <XMarkIcon className="h-7 w-7 cursor-pointer" onClick={() => setIsOpen(false)}/>
+            <Title className="mb-3">
+              Formulario de Registro de Pacientes IUTEPAL
+            </Title>
+            <XMarkIcon
+              className="h-7 w-7 cursor-pointer"
+              onClick={() => setIsOpen(false)}
+            />
           </div>
-          <Form />          
+          <Form agregarPaciente={agregarPaciente} />
         </DialogPanel>
       </Dialog>
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          {/* <h2 className="text-2xl font-medium">Pacientes</h2> */}
+          <TextInput
+            icon={RiSearchLine}
+            placeholder="Buscar Paciente..."
+            className="w-[400px]"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <Button
@@ -53,7 +89,7 @@ export const TablePacientes = () => {
           <TableHead>
             <TableRow>
               <TableHeaderCell>Nombre y Apellido</TableHeaderCell>
-              <TableHeaderCell>Fecha</TableHeaderCell>
+              <TableHeaderCell>Fecha de Consulta</TableHeaderCell>
               <TableHeaderCell>Cedula</TableHeaderCell>
               <TableHeaderCell>Cargo</TableHeaderCell>
               <TableHeaderCell>Motivo de Consulta</TableHeaderCell>
@@ -61,8 +97,9 @@ export const TablePacientes = () => {
               <TableHeaderCell>Ver</TableHeaderCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
-            {data.map((item) => (
+            {paginatedData.map((item) => (
               <TableRow key={item.name}>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>
@@ -78,16 +115,33 @@ export const TablePacientes = () => {
                   <Text>{item.MC}</Text>
                 </TableCell>
                 <TableCell>
-                  <Badge color="emerald">{item.status}</Badge>
+                  <Badge color={item.status === "activo" ? "emerald" : "red"}>
+                    {item.status}
+                  </Badge>
                 </TableCell>
                 <TableCell>
-                <Badge onClick={() => setIsOpen(true)} color="blue" className="cursor-pointer">Ver Perfil</Badge>
+                  <EyeIcon
+                    className="size-7 ml-2 cursor-pointer hover:text-primary text-secondary"
+                    onClick={() => setIsOpen(true)}
+                  />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        {filteredData.length === 0 && (
+          <Title className="text-center mt-5">
+            No existen pacientes registrados.
+          </Title>
+        )}
       </Card>
+      <Pagination
+        count={Math.ceil(filteredData.length / rowsPerPage)}
+        page={page + 1 || 0}
+        onChange={handleChangePage}
+        color="primary"
+        className="mt-5 flex justify-center"
+      />
     </div>
   );
 };

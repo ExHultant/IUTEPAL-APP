@@ -1,12 +1,26 @@
 import { Menu, Transition } from "@headlessui/react";
 import { userNavigation } from "../utils/routes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { classNames } from "../utils/classes";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@mui/material";
+import { Button, Dialog, DialogPanel } from "@tremor/react";
 
 export const ProfileDropdown = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    setIsOpen(true);
+  };
+
+  const logout = () => {
+    setIsOpen(false);
+    navigate("/");
+  };
+
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
@@ -38,6 +52,7 @@ export const ProfileDropdown = () => {
                     active ? "bg-gray-50" : "",
                     "block px-3 py-1 text-sm leading-6 text-gray-900"
                   )}
+                  onClick={item.name === "Cerrar Sesión" ? handleLogout : null}
                 >
                   {item.name}
                 </Link>
@@ -46,6 +61,28 @@ export const ProfileDropdown = () => {
           ))}
         </Menu.Items>
       </Transition>
+      {isOpen && (
+        <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+          <DialogPanel>
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <strong className="font-bold">Cerrar Sesión</strong>
+              <span className="block sm:inline">
+                {" "}
+                ¿Estás seguro de que quieres cerrar la sesión?
+              </span>
+            </div>
+            <Button className="mt-8 w-full" onClick={logout}>
+              Sí, cerrar sesión
+            </Button>
+            <Button className="mt-8 w-full" onClick={() => setIsOpen(false)}>
+              No, volver atrás
+            </Button>
+          </DialogPanel>
+        </Dialog>
+      )}
     </Menu>
   );
 };

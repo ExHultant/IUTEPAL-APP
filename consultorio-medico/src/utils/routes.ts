@@ -43,5 +43,5 @@ export const navigation = [
   ];
   export const userNavigation = [
     { name: "Perfil", href: "/perfil" },
-    { name: "Cerrar Sesión", href: "/logout" },
+    { name: "Cerrar Sesión", href: "/" },
   ];
