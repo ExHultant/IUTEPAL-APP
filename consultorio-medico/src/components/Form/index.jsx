@@ -58,8 +58,6 @@ export default function Form({ agregarPaciente }) {
       </div>
       <Flex justifyContent="around" alignItems="center">
         <DatePicker
-          value={fecha}
-          onValueChange={(newValue) => setFecha(newValue)}
           placeholder="Fecha de Cita"
           className="mx-3"
         />

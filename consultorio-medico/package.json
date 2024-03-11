@@ -16,6 +16,7 @@
     "@headlessui/tailwindcss": "^0.2.0",
     "@heroicons/react": "^2.0.18",
     "@mui/material": "^5.15.11",
+    "@remixicon/react": "^4.2.0",
     "@tremor/react": "^3.13.3",
     "axios": "^1.6.7",
     "date-fns": "^2.30.0",
