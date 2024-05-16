@@ -21,10 +21,10 @@ export default function Login() {
   };
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-20 w-auto" src={logo} alt="Your Company" />
-          <Metric className="mt-10 text-center font-bold">
+          <img className="w-auto h-20 mx-auto" src={logo} alt="Your Company" />
+          <Metric className="mt-10 font-bold text-center">
             Iniciar Sesión
           </Metric>
         </div>
@@ -69,7 +69,7 @@ export default function Login() {
                   <Button
                     variant="light"
                     href="#"
-                    className="font-bold text-gray-700 hover:text-secondary duration-300"
+                    className="font-bold text-gray-700 duration-300 hover:text-secondary"
                   >
                     Olvido de Contraseña?
                   </Button>
@@ -107,7 +107,7 @@ export default function Login() {
             >
               <DialogPanel>
                 <div
-                  className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                  className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded"
                   role="alert"
                 >
                   <strong className="font-bold">Error!</strong>
@@ -117,7 +117,7 @@ export default function Login() {
                   </span>
                 </div>
                 <Button
-                  className="mt-8 w-full"
+                  className="w-full mt-8"
                   onClick={() => setIsOpen(false)}
                 >
                   Entendido!
